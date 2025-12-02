@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - CSE21 Hub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">CSE21 Hub</h1>
+            <div class="nav-links">
+                <span id="userInfo"></span>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="courses.html">Courses</a>
+                <a href="chat.html">Group Chat</a>
+                <a href="bus-schedule.html">Bus Schedule</a>
+                <a href="contests.html">Contests</a>
+                <a href="news.html">News</a>
+                <a href="admin.html" id="adminNavLink" style="display:none; background: #e74c3c; font-weight: bold;">Admin Panel</a>
+                <a href="#" id="logoutBtn" class="btn">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <ul>
+                <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                <li><a href="courses.html">My Courses</a></li>
+                <li><a href="leaderboard.html">Leaderboard</a></li>
+                <li><a href="chat.html">Group Chat</a></li>
+                <li><a href="bus-schedule.html">Bus Schedule</a></li>
+                <li><a href="contests.html">Contests</a></li>
+                <li><a href="news.html">News</a></li>
+                <li id="adminLink" style="display:none;">
+                    <a href="admin.html" style="background: #e74c3c; color: white; font-weight: bold;">
+                        🔧 ADMIN PANEL
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <!-- CR ADMIN BUTTON (Shows only for CR) -->
+            <div id="crAdminPanel" style="display:none; background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white; padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem; text-align: center; box-shadow: 0 4px 15px rgba(231,76,60,0.3);">
+                <h3 style="margin-bottom: 0.5rem;">🔧 CLASS REPRESENTATIVE CONTROL PANEL</h3>
+                <p style="margin-bottom: 1rem;">You have administrative access to manage all data</p>
+                <a href="admin.html" class="btn" style="background: white; color: #e74c3c; font-weight: bold; font-size: 1.1rem;">
+                    ⚙️ OPEN ADMIN PANEL →
+                </a>
+            </div>
+
+            <h2>Welcome, <span id="userName"></span>!</h2>
+            
+            <div class="dashboard-grid">
+                <div class="card">
+                    <h3>📚 My Courses</h3>
+                    <p id="courseCount">Loading...</p>
+                    <a href="courses.html" class="btn">View All</a>
+                </div>
+
+                <div class="card">
+                    <h3>📊 My Performance</h3>
+                    <p id="performanceInfo">Loading...</p>
+                    <a href="leaderboard.html" class="btn">View Leaderboard</a>
+                </div>
+
+                <div class="card">
+                    <h3>🚌 Next Bus</h3>
+                    <p id="busInfo">Loading...</p>
+                    <a href="bus-schedule.html" class="btn">View Schedule</a>
+                </div>
+
+                <div class="card">
+                    <h3>🏆 Upcoming Contests</h3>
+                    <p id="contestInfo">Loading...</p>
+                    <a href="contests.html" class="btn">View All</a>
+                </div>
+            </div>
+
+            <div class="recent-news">
+                <h3>📰 Recent News</h3>
+                <div id="newsList"></div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/dashboard.js"></script>
+    
+    <script>
+        // FORCE SHOW ADMIN PANEL FOR CR
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const user = getUser();
+                console.log('Dashboard loaded. User:', user);
+                
+                if (user && user.role === 'cr') {
+                    console.log('✅ CR USER DETECTED!');
+                    
+                    // Show big admin button
+                    const crPanel = document.getElementById('crAdminPanel');
+                    if (crPanel) {
+                        crPanel.style.display = 'block';
+                        console.log('✅ Admin panel button shown');
+                    }
+                    
+                    // Show sidebar link
+                    const adminLink = document.getElementById('adminLink');
+                    if (adminLink) {
+                        adminLink.style.display = 'block';
+                        console.log('✅ Sidebar admin link shown');
+                    }
+                    
+                    // Show navbar link
+                    const adminNavLink = document.getElementById('adminNavLink');
+                    if (adminNavLink) {
+                        adminNavLink.style.display = 'inline-block';
+                        console.log('✅ Navbar admin link shown');
+                    }
+                } else {
+                    console.log('ℹ️ Regular student user');
+                }
+            }, 100);
+        });
+    </script>
+</body>
+</html>
