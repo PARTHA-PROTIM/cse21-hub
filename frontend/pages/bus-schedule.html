@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Schedule - CSE21 Hub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">CSE21 Hub</h1>
+            <div class="nav-links">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="bus-schedule.html" class="active">Bus Schedule</a>
+                <a href="#" id="logoutBtn" class="btn">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" style="margin-top: 30px;">
+        <h2>🚌 Campus Bus Schedules</h2>
+        <div id="busScheduleList" style="margin-top: 20px;"></div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/utils.js"></script>
+    <script>
+        checkAuth();
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            const token = getToken();
+            const list = document.getElementById('busScheduleList');
+            
+            try {
+                const response = await fetch(`${API_URL}/bus`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const schedules = await response.json();
+                
+                if (schedules.length > 0) {
+                    list.innerHTML = schedules.map(bus => `
+                        <div class="card" style="margin-bottom: 15px;">
+                            <h3>${bus.routeName}</h3>
+                            <p><strong>Time:</strong> ${bus.departureTime}</p>
+                            <p><strong>Destination:</strong> ${bus.destination}</p>
+                        </div>
+                    `).join('');
+                } else {
+                    list.innerHTML = '<p>No bus schedules available</p>';
+                }
+            } catch (error) {
+                list.innerHTML = '<p>Error loading schedules</p>';
+            }
+        });
+    </script>
+</body>
+</html>

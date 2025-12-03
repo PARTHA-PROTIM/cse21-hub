@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News - CSE21 Hub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">CSE21 Hub</h1>
+            <div class="nav-links">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="news.html" class="active">News</a>
+                <a href="#" id="logoutBtn" class="btn">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" style="margin-top: 30px;">
+        <h2>📰 Department News & Announcements</h2>
+        <div id="newsList" style="margin-top: 20px;"></div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/utils.js"></script>
+    <script>
+        checkAuth();
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            const token = getToken();
+            const list = document.getElementById('newsList');
+            
+            try {
+                const response = await fetch(`${API_URL}/news`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const news = await response.json();
+                
+                if (news.length > 0) {
+                    list.innerHTML = news.map(n => `
+                        <div class="card" style="margin-bottom: 15px;">
+                            <h3>${n.title}</h3>
+                            <p style="color: #666; font-size: 0.9em;">
+                                ${n.category} • ${new Date(n.createdAt).toLocaleDateString()}
+                            </p>
+                            <p>${n.content}</p>
+                        </div>
+                    `).join('');
+                } else {
+                    list.innerHTML = '<p>No news available</p>';
+                }
+            } catch (error) {
+                list.innerHTML = '<p>Error loading news</p>';
+            }
+        });
+    </script>
+</body>
+</html>

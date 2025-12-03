@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contests - CSE21 Hub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">CSE21 Hub</h1>
+            <div class="nav-links">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="contests.html" class="active">Contests</a>
+                <a href="#" id="logoutBtn" class="btn">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" style="margin-top: 30px;">
+        <h2>🏆 Programming Contests</h2>
+        <div id="contestsList" style="margin-top: 20px;"></div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/utils.js"></script>
+    <script>
+        checkAuth();
+        
+        document.addEventListener('DOMContentLoaded', async () => {
+            const token = getToken();
+            const list = document.getElementById('contestsList');
+            
+            try {
+                const response = await fetch(`${API_URL}/contests`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const contests = await response.json();
+                
+                if (contests.length > 0) {
+                    list.innerHTML = contests.map(c => `
+                        <div class="card" style="margin-bottom: 15px;">
+                            <h3>${c.title}</h3>
+                            <p>${c.description}</p>
+                            <p><strong>Platform:</strong> ${c.platform}</p>
+                            <p><strong>Start:</strong> ${new Date(c.startTime).toLocaleString()}</p>
+                            <p><strong>End:</strong> ${new Date(c.endTime).toLocaleString()}</p>
+                            ${c.contestUrl ? `<a href="${c.contestUrl}" target="_blank" class="btn btn-primary">Visit Contest</a>` : ''}
+                        </div>
+                    `).join('');
+                } else {
+                    list.innerHTML = '<p>No contests available</p>';
+                }
+            } catch (error) {
+                list.innerHTML = '<p>Error loading contests</p>';
+            }
+        });
+    </script>
+</body>
+</html>
