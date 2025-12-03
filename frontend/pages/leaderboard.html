@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard - CSE21 Hub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">CSE21 Hub</h1>
+            <div class="nav-links">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="courses.html">Courses</a>
+                <a href="leaderboard.html" class="active">Leaderboard</a>
+                <a href="#" id="logoutBtn" class="btn">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container" style="margin-top: 30px;">
+        <h2>Course Leaderboards</h2>
+        
+        <div style="margin: 20px 0;">
+            <label>Select Course: </label>
+            <select id="courseSelect" style="padding: 10px; margin-left: 10px;">
+                <option value="">Loading courses...</option>
+            </select>
+        </div>
+
+        <div id="leaderboardContainer"></div>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/leaderboard.js"></script>
+</body>
+</html>
