@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - CSE21 Hub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <h1 class="logo">CSE21 Hub - Admin</h1>
+            <div class="nav-links">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="#" id="logoutBtn" class="btn">Logout</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="admin-container">
+        <aside class="sidebar">
+            <ul>
+                <li><a href="#" data-section="requests" class="active">Registration Requests</a></li>
+                <li><a href="#" data-section="courses">Manage Courses</a></li>
+                <li><a href="#" data-section="marks">Manage Marks</a></li>
+                <li><a href="#" data-section="bus">Bus Schedules</a></li>
+                <li><a href="#" data-section="contests">Contests</a></li>
+                <li><a href="#" data-section="news">News</a></li>
+                <li><a href="#" data-section="users">Manage Users</a></li>
+            </ul>
+        </aside>
+
+        <main class="main-content">
+            <!-- Registration Requests Section -->
+            <section id="requests" class="admin-section active">
+                <h2>Pending Registration Requests</h2>
+                <div id="requestsList"></div>
+            </section>
+
+            <!-- Courses Section -->
+            <section id="courses" class="admin-section">
+                <h2>Manage Courses</h2>
+                <button class="btn btn-primary" id="addCourseBtn">Add New Course</button>
+                
+                <div id="courseFormContainer" style="display:none;" class="form-container">
+                    <h3>Add New Course</h3>
+                    <form id="courseForm">
+                        <input type="text" placeholder="Course Code (e.g., CSE 2101)" id="courseCode" required>
+                        <input type="text" placeholder="Course Name" id="courseName" required>
+                        <input type="number" placeholder="Credit" id="credit" required>
+                        <input type="text" placeholder="Semester (e.g., 3rd)" id="semester" required>
+                        <input type="text" placeholder="Teacher Name" id="teacher" required>
+                        <h4>Mark Distribution</h4>
+                        <input type="number" placeholder="Test 1 Marks" id="test1" value="10">
+                        <input type="number" placeholder="Test 2 Marks" id="test2" value="10">
+                        <input type="number" placeholder="Quiz Marks" id="quiz" value="10">
+                        <input type="number" placeholder="Assignment Marks" id="assignment" value="10">
+                        <input type="number" placeholder="Final Exam Marks" id="final" value="60">
+                        <button type="submit" class="btn btn-primary">Save Course</button>
+                        <button type="button" class="btn" id="cancelCourseBtn">Cancel</button>
+                    </form>
+                </div>
+                
+                <div id="coursesList"></div>
+            </section>
+
+            <!-- Marks Section -->
+            <section id="marks" class="admin-section">
+                <h2>Manage Student Marks</h2>
+                <div class="form-container">
+                    <form id="marksForm">
+                        <select id="markCourse" required>
+                            <option value="">Select Course</option>
+                        </select>
+                        <input type="text" placeholder="Student Registration Number" id="studentRegNo" required>
+                        <input type="number" placeholder="Test 1 Marks" id="markTest1" min="0">
+                        <input type="number" placeholder="Test 2 Marks" id="markTest2" min="0">
+                        <input type="number" placeholder="Quiz Marks" id="markQuiz" min="0">
+                        <input type="number" placeholder="Assignment Marks" id="markAssignment" min="0">
+                        <input type="number" placeholder="Final Exam Marks" id="markFinal" min="0">
+                        <button type="submit" class="btn btn-primary">Update Marks</button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Bus Schedule Section -->
+            <section id="bus" class="admin-section">
+                <h2>Bus Schedules</h2>
+                <button class="btn btn-primary" id="addBusBtn">Add Schedule</button>
+                
+                <div id="busFormContainer" style="display:none;" class="form-container">
+                    <h3>Add Bus Schedule</h3>
+                    <form id="busForm">
+                        <input type="text" placeholder="Route Name (e.g., Main Gate to Hostel)" id="routeName" required>
+                        <input type="time" placeholder="Departure Time" id="departureTime" required>
+                        <input type="text" placeholder="Destination" id="destination" required>
+                        <button type="submit" class="btn btn-primary">Save Schedule</button>
+                        <button type="button" class="btn" id="cancelBusBtn">Cancel</button>
+                    </form>
+                </div>
+                
+                <div id="busList"></div>
+            </section>
+
+            <!-- Contests Section -->
+            <section id="contests" class="admin-section">
+                <h2>Programming Contests</h2>
+                <button class="btn btn-primary" id="addContestBtn">Add Contest</button>
+                
+                <div id="contestFormContainer" style="display:none;" class="form-container">
+                    <h3>Add Contest</h3>
+                    <form id="contestForm">
+                        <input type="text" placeholder="Contest Title" id="contestTitle" required>
+                        <textarea placeholder="Description" id="contestDesc" required rows="3"></textarea>
+                        <input type="text" placeholder="Platform (e.g., Codeforces, CodeChef)" id="platform" required>
+                        <input type="url" placeholder="Contest URL (optional)" id="contestUrl">
+                        <label>Start Time:</label>
+                        <input type="datetime-local" id="startTime" required>
+                        <label>End Time:</label>
+                        <input type="datetime-local" id="endTime" required>
+                        <button type="submit" class="btn btn-primary">Save Contest</button>
+                        <button type="button" class="btn" id="cancelContestBtn">Cancel</button>
+                    </form>
+                </div>
+                
+                <div id="contestsList"></div>
+            </section>
+
+            <!-- News Section -->
+            <section id="news" class="admin-section">
+                <h2>Department News</h2>
+                <button class="btn btn-primary" id="addNewsBtn">Add News</button>
+                
+                <div id="newsFormContainer" style="display:none;" class="form-container">
+                    <h3>Publish News</h3>
+                    <form id="newsForm">
+                        <input type="text" placeholder="News Title" id="newsTitle" required>
+                        <textarea placeholder="News Content" id="newsContent" required rows="5"></textarea>
+                        <select id="newsCategory">
+                            <option value="general">General</option>
+                            <option value="academic">Academic</option>
+                            <option value="event">Event</option>
+                            <option value="announcement">Announcement</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary">Publish News</button>
+                        <button type="button" class="btn" id="cancelNewsBtn">Cancel</button>
+                    </form>
+                </div>
+                
+                <div id="newsListAdmin"></div>
+            </section>
+            <!-- Users Section -->
+<!-- Users Section -->
+<section id="users" class="admin-section">
+    <h2>All Registered Users</h2>
+    <p style="color: #7f8c8d; margin-bottom: 1.5rem;">
+        View all users. CR can remove students who can then re-register.
+    </p>
+    
+    <div id="usersList">
+        <p>Loading users...</p>
+    </div>
+</section>
+        </main>
+    </div>
+
+    <script src="../js/api.js"></script>
+    <script src="../js/utils.js"></script>
+    <script src="../js/admin.js"></script>
+</body>
+</html>
