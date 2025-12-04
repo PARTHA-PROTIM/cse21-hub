@@ -1,0 +1,148 @@
+.chat-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+    height: calc(100vh - 150px);
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.chat-header h2 {
+    margin-bottom: 0.5rem;
+}
+
+.chat-header p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+    background: #f8f9fa;
+}
+
+.message {
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.message.own {
+    align-items: flex-end;
+}
+
+.message-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.3rem;
+}
+
+.message-user {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.message-role {
+    background: #3498db;
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+}
+
+.message-role.cr {
+    background: #e74c3c;
+}
+
+.message-time {
+    font-size: 0.75rem;
+    color: #7f8c8d;
+}
+
+.message-content {
+    background: white;
+    padding: 0.8rem 1rem;
+    border-radius: 18px;
+    max-width: 70%;
+    word-wrap: break-word;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.message.own .message-content {
+    background: #3498db;
+    color: white;
+}
+
+.system-message {
+    text-align: center;
+    color: #7f8c8d;
+    font-size: 0.85rem;
+    margin: 1rem 0;
+    font-style: italic;
+}
+
+.typing-indicator {
+    padding: 0.5rem 1.5rem;
+    color: #7f8c8d;
+    font-size: 0.85rem;
+    font-style: italic;
+    min-height: 25px;
+}
+
+.chat-input-container {
+    display: flex;
+    gap: 0.5rem;
+    padding: 1rem;
+    background: white;
+    border-top: 1px solid #ecf0f1;
+}
+
+#messageInput {
+    flex: 1;
+    padding: 0.8rem 1rem;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    font-size: 1rem;
+    outline: none;
+}
+
+#messageInput:focus {
+    border-color: #3498db;
+}
+
+#sendBtn {
+    padding: 0.8rem 2rem;
+    border-radius: 25px;
+}
+
+/* Scrollbar styling */
+.chat-messages::-webkit-scrollbar {
+    width: 8px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
